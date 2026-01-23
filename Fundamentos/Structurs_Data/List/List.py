@@ -170,3 +170,14 @@ filtro = [e for e in estudiantes if sum(e["notas"]) / len(e["notas"]) >= 7]
 Ordenamineto = sorted(filtro, key = lambda e : sum(e["notas"]) / len(e["notas"]), reverse = True)
 Transformacion = [f"CERTIFICADO: {e['nombre']} | Calificación Final: {sum(e['notas']) / len(e['notas']):.1f}" for e in Ordenamineto]
 print(Transformacion)
+
+# Tu lógica impecable (con el ajuste de comillas):
+filtro = [e for e in estudiantes if sum(e["notas"]) / len(e["notas"]) >= 7]
+
+Ordenamineto = sorted(filtro, key = lambda e : sum(e["notas"]) / len(e["notas"]), reverse = True)
+
+Transformacion = [f"CERTIFICADO: {e['nombre']} | Calificación Final: {sum(e['notas']) / len(e['notas']):.1f}" for e in Ordenamineto]
+
+# Lo imprimimos bonito
+for certificado in Transformacion:
+    print(certificado)
