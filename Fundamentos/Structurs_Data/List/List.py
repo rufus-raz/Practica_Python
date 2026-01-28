@@ -1,3 +1,4 @@
+import os
 # Practica
 
 puntajes = [45, 88, 92, 70, 55, 100, 32]
@@ -181,3 +182,255 @@ Transformacion = [f"CERTIFICADO: {e['nombre']} | Calificación Final: {sum(e['no
 # Lo imprimimos bonito
 for certificado in Transformacion:
     print(certificado)
+
+# SEGUNDA RONDA
+# A
+frutas = ["manzana", "banana", "cereza", "pera"]
+frutas[1] = "kiwi"
+frutas.append("naranja")
+print(frutas[2])
+# B
+amigos = ["Axel", "Juan", "Alejandra", "Anahi", "Lilybeth"]
+ord_alfabetico = sorted(amigos)
+print(ord_alfabetico)
+# C
+numeros = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+pri_3 = numeros[: 3] # pri_3 = numeros[1: 4] 
+ult_2 = numeros[-2:] # ult_2 = numeros[-2::]
+invertida = numeros[::-1]
+print(invertida)
+# D
+colores = ["rojo", "azul", "verde", "rojo", "amarillo", "azul"]
+colores.remove("azul")
+n_rojo = colores.count("rojo") # n_rojo = int(colores.count("rojo"))
+colores.clear()
+print(colores)
+# E
+edades = [12, 18, 25, 15, 30, 8]
+m_8 = [edad for edad in edades if edad >= 18]
+# F
+palabras = ["python", "es", "genial"]
+tranfom = [f"{p.upper()}!" for p in palabras] # [palabra.upper() + "!" for palabra in palabras]
+print(tranfom)
+
+# TERCERA RONDA
+# 1
+letras = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+cada_dos_letras = letras[::2]
+#de_i_a_c_hacia_atras = sorted(letras[-8: -1], reverse = True)
+de_i_a_c_hacia_atras = letras[8:1:-1]
+ultimos_5_elementos = sorted(letras[-5:], reverse = True)
+print(de_i_a_c_hacia_atras)
+
+# 2
+matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+numero_6 = matriz[1][2]
+numero_5_x = matriz.copy()
+numero_5_x[1][1] = "x"
+diagonal = []
+for i in range(3):
+    diagonal.append(matriz[i][i])
+
+
+datos = [5, 12, 3, 20, 7, 15, 2]
+Tranformador_binario = [ "ALTO" if valor >= 10 else "BAJO" for valor in datos]
+
+puntajes = [45, 82, 93, 55, 102, 82, 74]
+alto = sorted(puntajes, reverse = True)
+print(alto[0])
+print(alto[1])
+print(datos.pop(len(alto)-1))
+
+"""
+============================================================
+                        El Slicing
+============================================================
+
+"""
+#*  lista[inicio: fin: paso]
+# inico: El indice donde empeizas(incluido)
+# fin: El indice donde terminas ( excluido)
+# poso(Step): Cuantos elementos saltas y en que direccion
+# lista[:: 2] -> "Dame todo, pero de dos en dos"
+# lista[::-1] -> "Dame todo, pero con paso -1" (esto invierte la lista)
+# lista[5:2:-1] -> Empieza en el 5, terminaantes del 2, caminando hacia atras
+
+#* Si hay listas anidadas, usa copy.deepcopy()
+
+
+def Palindromo (cadena):
+    if cadena:
+        if cadena == cadena[::-1]:
+            print("Es palindromo")
+        else:
+            print("No es palindromo")
+    else:
+        print("No hay que comparar")
+
+original = [[1, 1], [2, 2]]
+copia_1 = original.copy() # Apunta al mismo espacio de memoria de el que esta copiando
+import copy
+copia_2 = copy.deepcopy(original) # Reserva la informacion en otro espacio de memoria diferente al de el original
+
+original[0][0] = 99
+print(original)
+print(copia_1)
+print(copia_2)
+
+
+lista = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# expreciones = [lista[1: len(lista)- 1]]
+expreciones = lista[1:-1]
+print(expreciones)
+
+numeros = list(range(20)) 
+
+n_impares = [numeros[1::2]]
+multipos_de_4 = [numeros[4::4]]
+print(multipos_de_4)
+
+#* Codigo optimo
+# 1. Palíndromo elegante
+def es_palindromo(cadena):
+    if not cadena: return "Vacío"
+    # Comparamos directamente, devuelve True o False
+    return cadena == cadena[::-1]
+
+# 2. Slicing Pro
+lista = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+centro = lista[1:-1] # Más limpio que usar len()
+
+# 3. Múltiplos descendentes (El reto del Step)
+numeros = list(range(20))
+# Saltos de -4 empezando desde el múltiplo más alto
+mult_4_desc = numeros[16:0:-4] 
+# Resultado: [16, 12, 8, 4]
+
+#* Quinta ronda
+inventario = [
+    ["Laptop", 1200, 5],
+    ["Mouse", 25, 50],
+    ["Teclado", 80, 10],
+    ["Monitor", 300, 0], # Agotado
+    ["USB", 15, 100]
+]
+
+stock = [unidades for unidades in inventario if unidades[2] > 0]
+
+for producto in stock:
+    producto[1] = producto[1] * .9
+
+producto_caro = [e[0] for e in sorted(stock)]
+print(producto_caro[:1])
+print(inventario)
+
+#* Forma optima
+# 1. Filtrar (Como tú lo hiciste)
+stock = [p for p in inventario if p[2] > 0]
+
+# 2. Transformar (Usando f-strings para que se vea bonito)
+for p in stock:
+    p[1] *= 0.9
+
+# 3. Ordenar por PRECIO (índice 1)
+# lambda x: x[1] le dice a sorted que use el precio para comparar
+stock_ordenado = sorted(stock, key=lambda x: x[1])
+
+# 4. Extraer el nombre del MÁS CARO (el último de la lista)
+mas_caro = stock_ordenado[-1][0]
+
+print(f"El producto con stock más caro es: {mas_caro}")
+
+"""
+Simulador de Cola del banco
+
+"""
+try:
+    fila = ["Luis", "Ramiro", "Eliseo", "Matias"]
+
+    Desicion = True
+    while Desicion:
+        print("1. Agregar cliente", "2. Atender", "3. Colarse", "4. Estado" , "5. Terminar Jornada", sep= "\n")
+        des = int(input(":"))
+        os.system('cls')
+        match des:
+            case 1:
+                print("Agregar cliente")
+                cliente = input("Ingresa el nombre del cliente: ")
+                fila.append(cliente)
+            case 2:
+                print("Atender cliente")
+                if fila:
+                    atendido = fila.pop(0)
+                    print(f"Atendiendo a {atendido}")
+                else:
+                    print("No hay nadie en la fila.")
+            case 3:
+                print("Colarse")
+                cliente = input("Ingresa el nombre del cliente: ")
+                fila.insert(0, cliente)
+            case 4:
+                print("Estado")
+                print(fila)
+            case 5:
+                print("Terminar Jornada")
+                break
+            case _:
+                print("Esa opcion no esta en el menu")
+
+        input()
+        os.system('cls')
+except NameError as e:
+    print(f"Ocurrio un error inesperado: {e}")
+
+
+#* Version refactorizada
+import os
+
+fila = ["Luis", "Ramiro", "Eliseo", "Matias"]
+
+while True:
+    try:
+        print("--- CAJERO AUTOMÁTICO ---")
+        print(f"Clientes en espera: {len(fila)}")
+        print("1. Agregar cliente\n2. Atender\n3. Colarse (VIP)\n4. Ver Fila\n5. Salir")
+        
+        opcion = input("Seleccione una opción: ")
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        match opcion:
+            case "1":
+                nombre = input("Nombre del cliente: ")
+                if nombre.strip(): # Evita nombres vacíos
+                    fila.append(nombre)
+                else:
+                    print("Nombre no válido.")
+            case "2":
+                if fila:
+                    print(f"✅ Atendiendo a: {fila.pop(0)}")
+                else:
+                    print("❌ No hay clientes en la fila.")
+            case "3":
+                nombre = input("Nombre del cliente VIP: ")
+                fila.insert(0, nombre)
+                print(f"⚠️ {nombre} se ha colado al principio.")
+            case "4":
+                print("Fila actual:", " -> ".join(fila) if fila else "Vacía")
+            case "5":
+                print("Cerrando sistema...")
+                break
+            case _:
+                print("Opción no válida.")
+        
+        input("\nPresione Enter para continuar...")
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    except KeyboardInterrupt: # Por si el usuario presiona Ctrl+C
+        print("\nSaliendo forzosamente...")
+        break
